@@ -30,13 +30,13 @@ public class SampleService {
         return sampleRepository.findBySampleId(sampleId);
     }
 
-    public Sample createSample(@ModelAttribute SampleCreateRequest request) {
-        Sample sample = Sample.builder()
-                .name(request.getName())
-                .age(request.getAge())
-                .birthday(request.getBirthday())
-                .address(request.getAddress())
-                .build();
+    public Sample createSample(SampleCreateRequest request) {
+        Sample sample = new Sample(
+                request.getName(),
+                request.getAge(),
+                request.getBirthday(),
+                request.getAddress()
+        );
 
         return sampleRepository.save(sample);
     }

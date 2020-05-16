@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,4 +26,11 @@ public class Sample {
     @UpdateTimestamp
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    public Sample(String name, Integer age, LocalDateTime birthday, String address) {
+        this.name = name;
+        this.age = age;
+        this.birthday = birthday;
+        this.address = address;
+    }
 }
