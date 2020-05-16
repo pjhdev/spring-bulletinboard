@@ -21,7 +21,7 @@ public class SampleController {
     }
 
     /**
-     * sample 전화 조회
+     * sample 전체 조회
      * http://localhost:8080/sample/read-all
      */
     @RequestMapping("/sample/read-all")
@@ -73,7 +73,7 @@ public class SampleController {
     }
 
     /**
-     * sample 삭제/수정 페이지 요청
+     * sample 등록/수정 페이지 요청
      * http://localhost:8080/sample/write?type=CREATE
      * http://localhost:8080/sample/write?type=UPDATE&sample_id={sample_id}
      */

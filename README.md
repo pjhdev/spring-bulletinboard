@@ -24,7 +24,7 @@
 ### 1. 프로젝트 오픈
 
 <div align="center">
-    <img src="./assets/open.png" width="500px" />
+    <img src="./assets/open.png" width="450px" />
 </div>
 
 `spring-bulletinboard` 폴더가 저장된 디렉토리 선택한다. 프로젝트를 오픈하면 자동으로 Gradle 의존성이 추가된다.
@@ -59,10 +59,10 @@ use bulletinboard;  -- bulletinboard 데이터베이스 사용
 ### 3. 프로젝트 실행
 
 <div align="center">
-    <img src="./assets/run.png" width="600px" />
+    <img src="./assets/run.png" width="900px" />
 </div>
 
-프로젝트가 정상적으로 실행되면 위 이미지와 같이 결과가 나온다. 8080포트로 정상 동작하고 있는 모습이다.
+프로젝트가 정상적으로 실행되면 위 이미지와 같이 결과가 나온다. 8080 포트로 정상 동작하고 있는 모습이다.
 
 ```
 Hibernate: create table sample (sample_id bigint not null auto_increment, address varchar(255), age integer, birthday datetime(6), created_at datetime(6) not null, name varchar(255), updated_at datetime(6) not null, primary key (sample_id)) engine=InnoDB
@@ -77,6 +77,6 @@ desc sample;
 ```
 
 <div align="center">
-    <img src="./assets/sample-table.png" width="600px" />
+    <img src="./assets/sample-table.png" width="550px" />
 </div>
 
