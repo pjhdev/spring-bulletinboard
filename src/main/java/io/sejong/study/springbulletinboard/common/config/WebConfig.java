@@ -10,9 +10,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 @Configuration
 public class WebConfig {
 
-  /**
-   * freemarker path definition
-   */
+  /** freemarker path definition */
   @Bean
   public FreeMarkerConfigurer freemarkerConfig() {
     FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
@@ -20,9 +18,7 @@ public class WebConfig {
     return freeMarkerConfigurer;
   }
 
-  /**
-   * freemarker web configuration
-   */
+  /** freemarker web configuration */
   @Bean
   public FreeMarkerViewResolver freemarkerViewResolver() {
     FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
@@ -31,6 +27,4 @@ public class WebConfig {
     resolver.setContentType("utf-8");
     return resolver;
   }
-
-
 }
