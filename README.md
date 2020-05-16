@@ -80,3 +80,13 @@ desc sample;
     <img src="./assets/sample-table.png" width="550px" />
 </div>
 
+
+### 4. java formatting
+
+google java format 플러그인을 이용해서 코딩 컨벤션을 일치시킨다. 개행, 띄어쓰기, 주석 등등 규칙 없이 하다보면 컨벤션이 깨지게 된다.
+<br />
+자동 포매터를 이용해서 항상 `git push` 전에 자동 포매팅을 한다.
+
+<div align="center">
+    <img src="./assets/format.png" width="700px" />
+</div>
