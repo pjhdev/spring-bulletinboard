@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import sun.jvm.hotspot.debugger.Debugger;
 
 @Controller
+@RequestMapping("/api/v1")
 public class BoardController {
 
     private final BoardService boardService;
@@ -60,7 +61,7 @@ public class BoardController {
      * 게시글 생성
      */
     @PostMapping(value = "/board/new", produces = "application/x-www-form-urlencoded;charset=UTF-8")
-    public ModelAndView createBoard(Board board, int userId) {
+    public ModelAndView createBoard(Board board, String userId) {
         Board savedBoard = boardService.saveBoard(board, userId);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("board-one");

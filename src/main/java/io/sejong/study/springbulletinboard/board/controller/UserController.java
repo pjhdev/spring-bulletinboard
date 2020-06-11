@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/v2")
+@RequestMapping("/api/v1")
 public class UserController {
 
     private final UserService userService;
@@ -37,7 +37,7 @@ public class UserController {
      * 유저 전체 조회 - Admin 조회 권한 추후 추가해야함.
      */
     @RequestMapping(value = "/user/id/{userId}", method = RequestMethod.GET, produces = "application/json;charset=utf8")
-    public ModelAndView getBoardAll(@PathVariable int userId) {
+    public ModelAndView getBoardAll(@PathVariable String userId) {
         User user = userService.getUserById(userId);
 
         ModelAndView mv = new ModelAndView();
