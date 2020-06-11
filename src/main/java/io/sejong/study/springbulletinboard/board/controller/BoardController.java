@@ -1,17 +1,12 @@
 package io.sejong.study.springbulletinboard.board.controller;
 
-import ch.qos.logback.classic.Logger;
 import io.sejong.study.springbulletinboard.board.entity.Board;
 import io.sejong.study.springbulletinboard.board.service.BoardService;
-import java.util.List;
-
-import io.sejong.study.springbulletinboard.board.entity.Board;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import sun.jvm.hotspot.debugger.Debugger;
 
 @Controller
 @RequestMapping("/api/v1")
@@ -25,8 +20,9 @@ public class BoardController {
      * 게시글 내용 전체 조회
      */
     @RequestMapping(value ="/board/all", produces = "application/json;charset=utf8")
-    public ModelAndView getBoardAll(Model model) {
-        List<Board> boardList = boardService.getAll();
+    public ModelAndView getBoardAll(Pageable pageable) {
+        Page<Board> boardList = boardService.getAll(pageable);
+
         ModelAndView mv = new ModelAndView();
         mv.setViewName("board-all");
         mv.addObject("boards", boardList);
@@ -35,12 +31,11 @@ public class BoardController {
     }
 
     /**
-     * 게시글 내용 전체 조회
+     * 게시글 내용 단건 조회
      */
     @RequestMapping(value = "/board/id/{boardId}", method = RequestMethod.GET, produces = "application/json;charset=utf8")
     public ModelAndView getBoardAll(@PathVariable int boardId) {
         Board board = boardService.getBoardById(boardId);
-        System.out.println(board.getTitle());
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("board-one");

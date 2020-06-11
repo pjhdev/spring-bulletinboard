@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf8">
-    <title> 단건 조회 </title>
+    <meta charset="UTF-8">
+    <title> 게시글 조회 </title>
 </head>
 <body>
     <ul>
