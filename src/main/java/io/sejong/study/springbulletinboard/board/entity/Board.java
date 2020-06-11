@@ -32,7 +32,7 @@ public class Board {
 
     // N:1 관계 매핑
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name ="userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Board(String title, String contents) {

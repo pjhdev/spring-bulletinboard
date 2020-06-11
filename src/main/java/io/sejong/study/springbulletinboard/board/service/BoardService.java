@@ -31,8 +31,8 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
-    public Board saveBoard(Board board, int userId) {
-        User user = userRepository.findByUserId(userId);
+    public Board saveBoard(Board board, String id) {
+        User user = userRepository.findById(id);
         board.setUser(user);
 
         return boardRepository.save(board);
