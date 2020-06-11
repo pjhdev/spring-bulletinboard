@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf8">
-    <title> 전체 조회 </title>
+    <meta charset="UTF-8">
+    <title> 유저 조회 </title>
 </head>
 <body>
-    <#list users as user>
+    <#list users.iterator() as user>
         <ul>
-            <li>글 번호 : ${user.nickname}</li>
+            <li>아이디 : ${user.id}</li>
+            <li>닉네임 : ${user.nickname}</li>
             <li>비밀 번호 : ${user.password}</li>
         </ul>
 

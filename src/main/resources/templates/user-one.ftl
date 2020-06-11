@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf8">
-    <title> 단건 조회 </title>
+    <meta charset="UTF-8">
+    <title> 유저 조회 </title>
 </head>
 <body>
     <ul>
         <li>
+            아이디 : ${user.id}<br>
             닉네임 : ${user.nickname}<br>
             비밀번호 : ${user.password}<br>
         </li>
