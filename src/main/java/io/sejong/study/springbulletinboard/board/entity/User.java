@@ -14,13 +14,13 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
+    @Column(name = "user_id", length=20, nullable=false)
+    private String id;
 
-    @Column(length=20, name="nickname", nullable=false)
+    @Column(length=20, nullable=false)
     private String nickname;
 
-    @Column(name="password", nullable=false)
+    @Column(nullable=false)
     private String password;
 
     @CreationTimestamp
@@ -29,7 +29,7 @@ public class User {
 
     // N:1 관계 매핑
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name ="boardId")
+    @JoinColumn(name ="user_id")
     private List<Board> boards;
 
     public User(String nickname, String password) {

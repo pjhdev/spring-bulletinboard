@@ -16,7 +16,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUserById(int userId) { return userRepository.findByUserId(userId); }
+    public User getUserById(String id) { return userRepository.findById(id); }
 
     public User saveUser(User user) {
         return userRepository.save(user);
