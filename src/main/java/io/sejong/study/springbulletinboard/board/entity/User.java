@@ -28,12 +28,7 @@ public class User {
     private LocalDateTime createdAt;
 
     // N:1 관계 매핑
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name ="user_id")
     private List<Board> boards;
-
-    public User(String nickname, String password) {
-        this.nickname = nickname;
-        this.password = password;
-    }
 }

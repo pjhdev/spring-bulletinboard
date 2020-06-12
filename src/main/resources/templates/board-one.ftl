@@ -16,6 +16,6 @@
             작성자 : ${board.user.nickname}
         </li>
     </ul>
-
+    <button type ="button" onclick="location.href='/api/v1/board/delete/${board.boardId}'">delete</button>
 </body>
 </html>
