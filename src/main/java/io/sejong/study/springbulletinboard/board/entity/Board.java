@@ -31,12 +31,7 @@ public class Board {
     private LocalDateTime updatedAt;
 
     // N:1 관계 매핑
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    public Board(String title, String contents) {
-        this.title = title;
-        this.contents = contents;
-    }
 }

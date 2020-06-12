@@ -20,7 +20,7 @@ public class UserController {
      * 게시글 내용 전체 조회 - Admin 조회 권한 추후 추가해야함.
      */
     @RequestMapping(value ="/user/all", produces = "application/json;charset=utf8")
-    public ModelAndView getBoardAll(Pageable pageable) {
+    public ModelAndView getUserAll(Pageable pageable) {
         Page<User> userList = userService.getAll(pageable);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("user-all");
@@ -33,7 +33,7 @@ public class UserController {
      * 유저 전체 조회 - Admin 조회 권한 추후 추가해야함.
      */
     @RequestMapping(value = "/user/id/{userId}", method = RequestMethod.GET, produces = "application/json;charset=utf8")
-    public ModelAndView getBoardAll(@PathVariable String userId) {
+    public ModelAndView getUser(@PathVariable String userId) {
         User user = userService.getUserById(userId);
 
         ModelAndView mv = new ModelAndView();
@@ -47,7 +47,7 @@ public class UserController {
      * 유저 가입 페이지
      */
     @RequestMapping(value = "/user/new", method = RequestMethod.GET)
-    public String getNewBoardPage(){
+    public String getNewUserPage(){
         return "user-new";
     }
 

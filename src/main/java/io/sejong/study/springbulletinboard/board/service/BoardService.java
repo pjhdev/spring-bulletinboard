@@ -28,12 +28,9 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
-
     public Board getBoardById(int boardId) { return boardRepository.findByBoardId(boardId); }
 
-    public Board saveBoard(Board board) {
-        return boardRepository.save(board);
-    }
+    public Board saveBoard(Board board) { return boardRepository.save(board); }
 
     public Board saveBoard(Board board, String id) {
         User user = userRepository.findById(id);
@@ -41,4 +38,6 @@ public class BoardService {
 
         return boardRepository.save(board);
     }
+
+    public void deleteBoardById(int boardId) { boardRepository.deleteById(boardId); }
 }
