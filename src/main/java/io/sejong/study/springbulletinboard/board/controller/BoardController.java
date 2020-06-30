@@ -3,7 +3,6 @@ package io.sejong.study.springbulletinboard.board.controller;
 import io.sejong.study.springbulletinboard.board.entity.Board;
 import io.sejong.study.springbulletinboard.board.service.BoardService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +20,8 @@ public class BoardController {
      * 게시글 내용 전체 조회
      */
     @RequestMapping(value ="/board/all", produces = "application/json;charset=utf8")
-    public ModelAndView getBoardAll(Pageable pageable) {
-        Page<Board> boardList = boardService.getAll(pageable);
+    public ModelAndView getBoardAll(@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+        Page<Board> boardList = boardService.getAll(page);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("board-all");
         mv.addObject("boards", boardList);
@@ -33,15 +32,13 @@ public class BoardController {
     /**
      * 게시글 내용 단건 조회
      */
-    @RequestMapping(value = "/board/id/{boardId}", method = RequestMethod.GET, produces = "application/json;charset=utf8")
-    public ModelAndView getBoardAll(@PathVariable int boardId) {
+    @RequestMapping(value = "/board/{boardId}", method = RequestMethod.GET, produces = "application/json;charset=utf8")
+    public String getBoardOne(Model model, @PathVariable int boardId) {
         Board board = boardService.getBoardById(boardId);
+        model.addAttribute("replyList", board.getReplyList().iterator());
+        model.addAttribute("board", board);
 
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("board-one");
-        mv.addObject("board", board);
-
-        return mv;
+        return "board-one";
     }
 
     /**
@@ -50,9 +47,9 @@ public class BoardController {
     @RequestMapping(value = "/board/form", method = RequestMethod.GET)
     public String getNewBoardPage(Model model, String type, @RequestParam(value = "board_id", required = false, defaultValue = "0") int boardId)
     {
-        Board board = boardService.getBoardById(boardId);
         model.addAttribute("type", type);
         if (type.equals("edit")) {
+            Board board = boardService.getBoardById(boardId);
             model.addAttribute("board", board);
         }
         return "board-form";
@@ -91,11 +88,17 @@ public class BoardController {
     @GetMapping(value = "/board/delete/{boardId}")
     public String deleteBoard(@PathVariable int boardId)
     {
-        System.out.println("HEREREER");
-        System.out.println(boardId);
-        System.out.println("HEREREER");
         boardService.deleteBoardById(boardId);
 
         return "redirect:/api/v1/board/all";
+    }
+
+    /**
+     * 테스트
+     */
+    @GetMapping(value = "/page")
+    public String page()
+    {
+        return "page";
     }
 }

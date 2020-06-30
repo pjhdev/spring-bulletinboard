@@ -16,6 +16,16 @@
             작성자 : ${board.user.nickname}
         </li>
     </ul>
+    <#list replyList as reply>
+        <ul>
+            <li>댓글 : ${reply.contents} <button type="button" onclick="location.href='/api/v1/reply/delete/${reply.replyId}'">delete</button> </li>
+        </ul>
+    </#list>
     <button type ="button" onclick="location.href='/api/v1/board/delete/${board.boardId}'">delete</button>
+    <form class="form-control-plaintext" action="/api/v1/reply/new?boardId=${board.boardId}" method="post">
+        댓글 : <input class="text-body" name="contents"><br>
+
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>

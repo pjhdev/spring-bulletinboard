@@ -1,10 +1,8 @@
 package io.sejong.study.springbulletinboard.board.entity;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import javax.persistence.*;
 import lombok.*;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
@@ -26,9 +24,4 @@ public class User {
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
-
-    // N:1 관계 매핑
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name ="user_id")
-    private List<Board> boards;
 }

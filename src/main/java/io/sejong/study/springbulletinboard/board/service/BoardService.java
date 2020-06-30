@@ -7,7 +7,6 @@ import io.sejong.study.springbulletinboard.board.repository.UserRepository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,11 +20,10 @@ public class BoardService {
         this.userRepository = userRepository;
     }
 
-    public Page<Board> getAll(Pageable pageable) {
-        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        pageable = PageRequest.of(page, 3);
-
-        return boardRepository.findAll(pageable);
+    public Page<Board> getAll(int page) {
+        page  = page <= 0 ? 0 : page - 1;
+        PageRequest pageRequest = PageRequest.of(page, 3);
+        return boardRepository.findAll(pageRequest);
     }
 
     public Board getBoardById(int boardId) { return boardRepository.findByBoardId(boardId); }

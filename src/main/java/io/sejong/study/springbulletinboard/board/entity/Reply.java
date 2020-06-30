@@ -1,9 +1,9 @@
 package io.sejong.study.springbulletinboard.board.entity;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
+
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -13,13 +13,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Board {
+public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer boardId;
-
-    @Column(length = 50, nullable = false)
-    private String title;
+    private Integer replyId;
 
     @Column(name = "contents", columnDefinition = "TEXT")
     private String contents;
@@ -32,10 +29,7 @@ public class Board {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board", cascade = CascadeType.REMOVE)
-    private List<Reply> replyList;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id")
+    private Board board;
 }
