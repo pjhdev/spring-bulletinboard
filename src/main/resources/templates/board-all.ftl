@@ -45,27 +45,35 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                    <tr>
-                                        <th>게시글 번호</th>
-                                        <th>제목</th>
-                                        <th>내용</th>
-                                        <th>작성시간</th>
-                                    </tr>
-                                    </thead>
-                                    <tfoot>
-                                    <tbody>
-                                    <#list boards.iterator() as board>
-                                        <tr>
-                                            <td>${board.boardId}</td>
-                                            <td>${board.title}</td>
-                                            <td>${board.contents}</td>
-                                            <td>${board.createdAt}</td>
-                                        </tr>
-                                    </#list>
-                                    </tbody>
-                                </table>
+                                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                <tr>
+                                                    <th>게시글 번호</th>
+                                                    <th>제목</th>
+                                                    <th>작성자</th>
+                                                    <th>작성시간</th>
+                                                </tr>
+                                                </thead>
+                                                <tfoot>
+                                                <tbody>
+                                                <#list boards.iterator() as board>
+                                                    <tr>
+                                                        <td><a href="/api/v1/board/${board.boardId}">${board.boardId}</a></td>
+                                                        <td>${board.title}</td>
+                                                        <td>${board.user.nickname}</td>
+                                                        <td>${board.createdAt}</td>
+                                                    </tr>
+                                                </#list>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <#assign lastPage = boards.getTotalPages()>
+                                    <#include "common/page-bar.ftl">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -74,22 +82,8 @@
                 <!-- /.container-fluid -->
             </div>
         </div>
-
-
-
     </div>
     <!-- End of Main Content -->
-    </div>
-
-
-    <br>
-    <#if boards.getTotalPages() == 0 >
-        <button type ="button" onclick="location.href='/api/v1/board/all?page=${1}'">${1}</button>
-    <#else>
-        <#list 1 .. boards.getTotalPages() as i>
-            <button type ="button" onclick="location.href='/api/v1/board/all?page=${i}'">${i}</button>
-        </#list>
-    </#if>
 
     <a class="scroll-to-top rounded" href="#page-top" style="display: inline;">
         <i class="fas fa-angle-up"></i>
