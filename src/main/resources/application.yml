@@ -8,8 +8,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/bulletinboard?characterEncoding=UTF-8&serverTimezone=Asia/Seoul # 데이터베이스 이름 bulletinboard
-    username: xesos_db  # mysql username로 변경
-    password: oozoo0627  # mysql password로 변경
+    username: root  # mysql username로 변경
+    password: qkr112255!!  # mysql password로 변경
   jpa:
     show-sql: true
     hibernate:

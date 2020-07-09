@@ -29,7 +29,7 @@ public class BoardController {
 
         int pageBarCount = 5;
         int startIndex = pageBarCount * (page / (pageBarCount + 1)) + 1;
-        int endIndex = page > boardList.getTotalPages() ? boardList.getTotalPages() : ((startIndex / pageBarCount) + 1) * pageBarCount;
+        int endIndex = page >= boardList.getTotalPages() ? boardList.getTotalPages() : ((startIndex / pageBarCount) + 1) * pageBarCount;
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("board-all");

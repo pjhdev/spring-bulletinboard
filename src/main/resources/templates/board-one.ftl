@@ -1,21 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <#include "common/css.ftl">
     <title> 게시글 조회 </title>
-
-    <!-- Custom fonts for this template -->
-    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="/static/css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="/static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 <body>
 <!-- Page Wrapper -->
@@ -43,10 +30,54 @@
                             <div class="col text-body text-left">${board.contents}</div>
                         </div>
                     </div>
+
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-header">
+                            댓글
+                        </div>
+                        <div>
+                            <ul class="list-group list-group-flush">
+                                <#if board.getReplyList()??>
+                                    <#list board.getReplyList() as reply>
+                                        <li class="list-group-item">
+                                            <div style="float:left">
+                                                ${reply.contents}
+                                            </div>
+                                            <div style="float:right">
+                                                <button class="btn btn-primary" onclick="location.href='/api/v1/reply/delete/${reply.replyId}'">삭제</button>
+                                            </div>
+                                        </li>
+                                    </#list>
+                                </#if>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <#--<#if board.getReplyList()??>
+                        <#list board.getReplyList() as reply>
+                            <ul>
+                                <li>${reply.contents} <button type="button" class="btn btn-primary" onclick="location.href='/api/v1/reply/delete/${reply.replyId}'">댓글 삭제</button> </li>
+                            </ul>
+                        </#list>
+                    </#if>-->
+
+                    <div class="card-footer">
+                        <form class="form-control-plaintext" action="/api/v1/reply/new?boardId=${board.boardId}" method="post">
+                            <ul class="nav nav-pills card-header-pills">
+                                <li class="nav-item">
+                                    <input type="text" class="form-control" id="reply" name="contents">
+                                </li>
+                                <li class="nav-item">
+                                    <input type="submit" value="댓글 작성" class="btn btn-primary">
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+
+
                     <div class="card-footer">
                         <ul class="nav nav-pills card-header-pills">
                             <li class="nav-item">
-                                <#--<a class="nav-link" href="/api/v1/board/all">이전</a>-->
                                 <a class="nav-link" href="javascript:history.back()">이전</a>
                             </li>
                             <li class="nav-item">
@@ -57,19 +88,6 @@
                             </li>
                         </ul>
                     </div>
-                    <#if board.getReplyList()??>
-                        <#list board.getReplyList() as reply>
-                            <ul>
-                                <li>댓글 : ${reply.contents} <button type="button" onclick="location.href='/api/v1/reply/delete/${reply.replyId}'">delete</button> </li>
-                            </ul>
-                        </#list>
-                    </#if>
-
-                    <#--<form class="form-control-plaintext" action="/api/v1/reply/new?boardId=${board.boardId}" method="post">
-                        댓글 : <input class="text-body" name="contents"><br>
-
-                        <input type="submit" value="Submit">
-                    </form>-->
                 </div>
             </div>
         </div>
