@@ -22,7 +22,7 @@ public class BoardService {
 
     public Page<Board> getAll(int page) {
         page  = page <= 0 ? 0 : page - 1;
-        PageRequest pageRequest = PageRequest.of(page, 3);
+        PageRequest pageRequest = PageRequest.of(page, 10);
         return boardRepository.findAll(pageRequest);
     }
 

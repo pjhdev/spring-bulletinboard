@@ -1,6 +1,7 @@
 package io.sejong.study.springbulletinboard.board.controller;
 
 import io.sejong.study.springbulletinboard.board.entity.Board;
+import io.sejong.study.springbulletinboard.board.entity.User;
 import io.sejong.study.springbulletinboard.board.service.BoardService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -8,10 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.stream.IntStream;
+
 @Controller
 @RequestMapping("/api/v1")
 public class BoardController {
 
+    //public static final int pageBarCount = 5;
     private final BoardService boardService;
 
     public BoardController(BoardService boardService) { this.boardService = boardService; }
@@ -22,9 +26,16 @@ public class BoardController {
     @RequestMapping(value ="/board/all", produces = "application/json;charset=utf8")
     public ModelAndView getBoardAll(@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
         Page<Board> boardList = boardService.getAll(page);
+
+        int pageBarCount = 5;
+        int startIndex = pageBarCount * (page / (pageBarCount + 1)) + 1;
+        int endIndex = page > boardList.getTotalPages() ? boardList.getTotalPages() : ((startIndex / pageBarCount) + 1) * pageBarCount;
+
         ModelAndView mv = new ModelAndView();
         mv.setViewName("board-all");
         mv.addObject("boards", boardList);
+        mv.addObject("startIndex", startIndex);
+        mv.addObject("endIndex", endIndex);
 
         return mv;
     }
@@ -59,27 +70,26 @@ public class BoardController {
      * 게시글 생성
      */
     @PostMapping(value = "/board/new", produces = "application/x-www-form-urlencoded;charset=UTF-8")
-    public ModelAndView createBoard(Board board, String userId) {
+    public String createBoard(Model model, Board board, String userId) {
         Board savedBoard = boardService.saveBoard(board, userId);
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("board-one");
-        mv.addObject("board", savedBoard);
 
-        return mv;
+        model.addAttribute("board", savedBoard);
+        return "redirect:/api/v1/board/" + savedBoard.getBoardId();
     }
 
     /**
      * 게시글 수정
      */
     @PostMapping(value = "/board/edit/{boardId}", produces = "application/x-www-form-urlencoded;charset=UTF-8")
-    public ModelAndView updateBoard(@PathVariable int boardId, Board board)
+    public String updateBoard(Model model, @PathVariable int boardId, Board board)
     {
         Board updateBoard = boardService.getBoardById(boardId);
         updateBoard.setTitle(board.getTitle());
         updateBoard.setContents(board.getContents());
         boardService.saveBoard(updateBoard);
 
-        return new ModelAndView("board-one", "board", updateBoard);
+        model.addAttribute("board", updateBoard);
+        return "redirect:/api/v1/board/" + updateBoard.getBoardId();
     }
 
     /**
@@ -100,5 +110,27 @@ public class BoardController {
     public String page()
     {
         return "page";
+    }
+
+    /**
+     * 테스트 더미 데이터
+     */
+    @GetMapping(value = "/test/data")
+    public String testData()
+    {
+        /*User user = new User();
+        user.setId("zkdlwnfm");
+        user.setNickname("pjh6274");
+        user.setPassword("3214");
+        userService.*/
+
+        IntStream.range(1, 100).forEach(i -> {
+            Board board = new Board();
+            board.setTitle("Title"+i);
+            board.setContents("Contents"+i);
+            boardService.saveBoard(board, "zkdlwnfm");
+        });
+
+        return "board-all";
     }
 }
